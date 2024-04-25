@@ -1,8 +1,11 @@
+---
 name: morpheus-github-actions
-on: [push]
+on:
+  - push
 jobs:
   check-bats-version:
-    runs-on: [self-hosted]
+    runs-on:
+      - self-hosted
     steps:
       - uses: actions/checkout@v4
       - name: Order catalog item
@@ -11,8 +14,9 @@ jobs:
           MORPHEUS_API_TOKEN: ${{ secrets.MORPHEUS_API_TOKEN }}
         uses: martezr/morpheus-github-action@v1
         with:
-          name: 'Create Workspace'
+          name: Create Workspace
           parameters: |
-	     openTofuGitRepo=https://github.com/martezr/terraform-example.git
-             openTofuVersion=1.6.0
-	     openTofuGitRef=main
+            openTofuGitRepo=https://github.com/martezr/terraform-example.git
+            openTofuVersion=1.6.0
+            openTofuGitRef=main
+
