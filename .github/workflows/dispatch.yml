@@ -17,3 +17,6 @@ jobs:
     steps:
       - name: Print the input tag to STDOUT
         run: echo  The tags are ${{ inputs.tags }} 
+      - name: Sleep for 120 seconds
+        run: sleep 120s
+        shell: bash
