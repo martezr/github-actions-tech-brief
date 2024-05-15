@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check Morpheus Version
-        run: morpheus version
+        run: morpheus remote add demo ${{ secrets.MORPHEUS_API_URL }} 
 
