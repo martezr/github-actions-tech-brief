@@ -1,0 +1,17 @@
+---
+name: morpheus-github-actions-demo
+on:
+  - push
+jobs:
+  morpheus-env-build:
+    runs-on: ubuntu-latest
+    container:
+      image: morpheusdata/morpheus-cli:7.0.1
+      env:
+        MORPHEUS_API_URL: ${{ secrets.MORPHEUS_API_URL }}
+        MORPHEUS_API_TOKEN: ${{ secrets.MORPHEUS_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Morpheus Version
+        run: morpheus version
+
