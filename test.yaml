@@ -1,0 +1,38 @@
+---
+zoneId: 141
+instance:
+  name: cidemo
+  cloud: AWS Labs
+  site:
+    id: 2
+  type: ubuntu
+  instanceType:
+    code: ubuntu
+  instanceContext: dev
+  layout:
+    id: 2510
+    code: ubuntu-amazon-22.04
+  plan:
+    id: 4
+    code: amazon-t2.medium
+    name: T2 Medium - 2 Core, 4GB Memory
+config:
+  resourcePoolId: pool-408
+  isEC2: 'false'
+  publicIpType: subnet
+  createUser: true
+volumes:
+- id: -1
+  rootVolume: true
+  name: root
+  size: 25
+  sizeId: 
+  storageType: 6
+  datastoreId: 
+networkInterfaces:
+- network:
+    id: networkGroup-2
+securityGroups:
+- id: sg-0f354d94f39d670bf
+layoutSize: 1
+

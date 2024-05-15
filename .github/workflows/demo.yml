@@ -16,5 +16,5 @@ jobs:
         run: morpheus remote add demo ${{ secrets.MORPHEUS_API_URL }} --use --secure -O default=false -N
       - name: Morpheus Login
         run: morpheus login -T ${{ secrets.MORPHEUS_API_TOKEN }}
-      - name: Morpheus List Instances
-        run: morpheus instances list
+      - name: Morpheus Deploy Instance
+        run: morpheus instances add --payload test.yaml --refresh 30 -j > payload.json
