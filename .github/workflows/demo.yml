@@ -17,4 +17,6 @@ jobs:
       - name: Morpheus Login
         run: morpheus login -T ${{ secrets.MORPHEUS_API_TOKEN }}
       - name: Morpheus Deploy Instance
-        run: morpheus instances add --payload test.yaml --refresh 30
+        run: morpheus instances add --payload test.yaml -j > output.json
+      - name: Parse JSON
+        run: ls
