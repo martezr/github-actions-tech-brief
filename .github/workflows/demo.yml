@@ -18,12 +18,14 @@ jobs:
         run: morpheus login -T ${{ secrets.MORPHEUS_API_TOKEN }}
       - name: Morpheus Deploy Instance
         run: morpheus instances add --payload test.yaml -j > output.json
-      - name: Parse JSON
-        run: ls
       - name: get properties
         id: json_properties
         uses: ActionsTools/read-json-action@main
         with:
           file_path: "output.json"
-      - run: |
-          echo ${{steps.json_properties.outputs.instance}}
+      - name: Set Instance ID
+        id: set_instance_id
+        run: |
+          echo instanceId=${{steps.json_properties.outputs.instance.id}} >> $GITHUB_OUTPUT
+      - name: Output Instance ID
+        run: echo ${{steps.set_instance_id.outputs.instanceId}}
