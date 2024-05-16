@@ -35,4 +35,4 @@ jobs:
       - name: Test Sleep
         run: sleep 60
       - name: Morpheus Destroy Instance
-        run: morpheus instances remove ${{steps.set_instance_id.outputs.instanceId}}
+        run: morpheus instances remove ${{steps.set_instance_id.outputs.instanceId}} -y
