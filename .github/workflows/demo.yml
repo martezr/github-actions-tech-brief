@@ -23,9 +23,10 @@ jobs:
         uses: ActionsTools/read-json-action@main
         with:
           file_path: "output.json"
+          prop_path: "instance.id"
       - name: Set Instance ID
         id: set_instance_id
         run: |
-          echo instanceId=${{steps.json_properties.outputs.instance.id}} >> $GITHUB_OUTPUT
+          echo "instanceId=${{steps.json_properties.outputs.value}}" >> $GITHUB_OUTPUT
       - name: Output Instance ID
-        run: echo ${{steps.set_instance_id.outputs.instanceId}}
+        run: echo "ID - ${{steps.set_instance_id.outputs.instanceId}}"
