@@ -30,3 +30,5 @@ jobs:
           echo "instanceId=${{steps.json_properties.outputs.value}}" >> $GITHUB_OUTPUT
       - name: Output Instance ID
         run: echo "ID - ${{steps.set_instance_id.outputs.instanceId}}"
+      - name: Instance Wait
+        run: morpheus instances get ${{steps.set_instance_id.outputs.instanceId}} --refresh 30
