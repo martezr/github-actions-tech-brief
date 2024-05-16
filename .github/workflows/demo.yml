@@ -12,13 +12,13 @@ jobs:
         MORPHEUS_API_TOKEN: ${{ secrets.MORPHEUS_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - name: Check Morpheus Version
+      - name: Morpheus Add Remote
         run: morpheus remote add demo ${{ secrets.MORPHEUS_API_URL }} --use --secure -O default=false -N
       - name: Morpheus Login
         run: morpheus login -T ${{ secrets.MORPHEUS_API_TOKEN }}
       - name: Morpheus Deploy Instance
         run: morpheus instances add --payload test.yaml -j > output.json
-      - name: get properties
+      - name: Parse JSON
         id: json_properties
         uses: ActionsTools/read-json-action@main
         with:
@@ -32,3 +32,7 @@ jobs:
         run: echo "ID - ${{steps.set_instance_id.outputs.instanceId}}"
       - name: Instance Wait
         run: morpheus instances get ${{steps.set_instance_id.outputs.instanceId}} --refresh 30
+      - name: Test Sleep
+        run: sleep 60
+      - name: Morpheus Destroy Instance
+        run: morpheus instances remove ${{steps.set_instance_id.outputs.instanceId}}
