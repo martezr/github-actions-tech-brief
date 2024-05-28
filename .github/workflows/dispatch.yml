@@ -1,22 +1,17 @@
 on:
   workflow_dispatch:
     inputs:
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
+      message:
+        description: 'Workflow message to print'
         required: true
         type: string
 
 jobs:
-  print-tag:
+  print-message:
     runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }} 
     steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+      - name: Print the message to STDOUT
+        run: echo  The Morpheus message is: ${{ inputs.message }} 
       - name: Sleep for 120 seconds
         run: sleep 120s
         shell: bash
