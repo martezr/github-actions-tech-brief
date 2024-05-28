@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print the message to STDOUT
-        run: echo  The Morpheus message is: ${{ inputs.message }} 
+        run: echo  The Morpheus message is ${{ inputs.message }} 
       - name: Sleep for 120 seconds
         run: sleep 120s
         shell: bash
