@@ -18,8 +18,10 @@ jobs:
         run: morpheus login -T ${{ secrets.MORPHEUS_API_TOKEN }}
       - name: Morpheus Deploy Instance
         run: morpheus instances add --payload test.yaml -j > output.json
-      - name: Parse JSON
-        id: json_properties
+
+      # Set Instance ID
+      - name: Parse Instance ID
+        id: parse_instance_id
         uses: ActionsTools/read-json-action@main
         with:
           file_path: "output.json"
@@ -27,12 +29,32 @@ jobs:
       - name: Set Instance ID
         id: set_instance_id
         run: |
-          echo "instanceId=${{steps.json_properties.outputs.value}}" >> $GITHUB_OUTPUT
+          echo "instanceId=${{steps.parse_instance_id.outputs.value}}" >> $GITHUB_OUTPUT
       - name: Output Instance ID
         run: echo "ID - ${{steps.set_instance_id.outputs.instanceId}}"
       - name: Instance Wait
         run: morpheus instances get ${{steps.set_instance_id.outputs.instanceId}} --refresh 30
+
+      # Set Instance IP Address
+      - name: Morpheus Fetch Instance IP Address
+        run: morpheus instances get ${{steps.set_instance_id.outputs.instanceId}} -j > ip.json
+      - name: Fetch Instance IP Address
+        id: fetch_instance_ip_address
+        uses: ActionsTools/read-json-action@main
+        with:
+          file_path: "ip.json"
+          prop_path: "instance.connectionInfo[0].ip"
+      - name: Set Instance IP Address
+        id: set_instance_ip_address
+        run: |
+          echo "instanceIp=${{steps.fetch_instance_ip_address.outputs.value}}" >> $GITHUB_OUTPUT
+      - name: Output Instance IP Address
+        run: echo "IP - ${{steps.set_instance_ip_address.outputs.instanceIp}}"
+
+      # Run Test Automation
       - name: Test Sleep
         run: sleep 60
+
+      # Destroy Morpheus Instance
       - name: Morpheus Destroy Instance
         run: morpheus instances remove ${{steps.set_instance_id.outputs.instanceId}} -y
