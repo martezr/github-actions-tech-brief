@@ -35,4 +35,5 @@ networkInterfaces:
 securityGroups:
 - id: sg-0f354d94f39d670bf
 layoutSize: 1
+taskSetId: 260
 

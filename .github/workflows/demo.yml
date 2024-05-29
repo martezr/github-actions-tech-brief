@@ -12,6 +12,8 @@ jobs:
         MORPHEUS_API_TOKEN: ${{ secrets.MORPHEUS_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+
+      # Morpheus Setup
       - name: Morpheus Add Remote
         run: morpheus remote add demo ${{ secrets.MORPHEUS_API_URL }} --use --secure -O default=false -N
       - name: Morpheus Login
@@ -54,6 +56,9 @@ jobs:
       # Run Test Automation
       - name: Test Sleep
         run: sleep 60
+
+      - name: Test Web Page
+        run: curl http://${{steps.set_instance_ip_address.outputs.instanceIp}}
 
       # Destroy Morpheus Instance
       - name: Morpheus Destroy Instance
